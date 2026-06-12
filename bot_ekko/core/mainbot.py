@@ -1,7 +1,7 @@
 import queue
 
 from bot_ekko.core.command_center import Command, CommandCenter
-from bot_ekko.services import SensorService, BluetoothService, GestureService, SystemLogsService, MicService
+from bot_ekko.services import SensorService, BluetoothService, GestureService, SystemLogsService, MicService, CLIService
 from bot_ekko.core.models import ServicesConfig
 
 
@@ -27,6 +27,7 @@ class MainBotServicesManager:
         self.state_handler = state_handler
         self.service_gesture = None
         self.service_mic = None
+        self.service_cli = None
 
         self.command_center = CommandCenter(self.command_queue, self.state_handler)
         self.interrupt_handler = interrupt_handler
@@ -55,6 +56,11 @@ class MainBotServicesManager:
         self.service_mic = MicService(
             service_mic_config=services_config.mic_service
         )
+        if services_config.cli_service:
+            self.service_cli = CLIService(
+                command_center=self.command_center,
+                config=services_config.cli_service
+            )
 
         # add services to the dictionary
         self.all_services.append(self.service_sensor)
@@ -62,6 +68,8 @@ class MainBotServicesManager:
         self.all_services.append(self.service_gesture)
         self.all_services.append(self.service_system_logs)
         self.all_services.append(self.service_mic)
+        if self.service_cli:
+            self.all_services.append(self.service_cli)
         
         # add enabled services to the list
         self.enabled_services = [i for i in self.all_services if i.enabled]

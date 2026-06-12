@@ -282,3 +282,23 @@ class EyesExpressions:
         # But maybe we want different shapes?
         # Let's just use generic rects, physics handles asymmetry.
         self.draw_rect_eyes(surface, color)
+
+    def draw_listening_eyes(self, surface, now, color=CYAN):
+        lx, ly = int(self.eyes.curr_lx), int(self.eyes.curr_ly)
+        rx, ry = int(self.eyes.curr_rx), int(self.eyes.curr_ry)
+        
+        # Pulsing circle effect based on time
+        pulse = (math.sin(now / 150.0) + 1) / 2 # 0.0 to 1.0
+        
+        radius_outer = 60
+        radius_inner = 20 + int(30 * pulse)
+        width_outer = 6
+        
+        # Draw left eye
+        pygame.draw.circle(surface, color, (lx, ly), radius_outer, width_outer)
+        pygame.draw.circle(surface, color, (lx, ly), radius_inner)
+        
+        # Draw right eye
+        pygame.draw.circle(surface, color, (rx, ry), radius_outer, width_outer)
+        pygame.draw.circle(surface, color, (rx, ry), radius_inner)
+

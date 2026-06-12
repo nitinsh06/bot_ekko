@@ -40,13 +40,18 @@
         },
         "mic_service": {
             "name": "mic",
-            "enabled": true,
+            "enabled": false,
             "sample_rate": 44100,
             "channels": 1,
             "chunk_size": 1024,
             "buffer_size": 10,
             "save_audio": true,
             "save_audio_path": "bot_ekko/recordings"
+        },
+        "cli_service": {
+            "name": "cli",
+            "enabled": true,
+            "socket_path": "/tmp/ekko_cli.sock"
         }
     },
     "schedules": [

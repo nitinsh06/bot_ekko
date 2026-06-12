@@ -114,6 +114,12 @@ class ServiceMicConfig(BaseModel):
 
 
 
+class ServiceCliConfig(BaseModel):
+    name: str = "cli"
+    enabled: bool = False
+    socket_path: str = "/tmp/ekko_cli.sock"
+
+
 class UIExpressionConfig(BaseModel):
     adapter_module_path: str = "bot_ekko.ui_expressions_lib.eyes.adapter"
     adapter_class_name: str = "EyesExpressionAdapter"
@@ -124,7 +130,8 @@ class ServicesConfig(BaseModel):
     bt_service: ServiceBluetoothConfig
     gesture_service: ServiceGestureConfig
     mic_service: ServiceMicConfig
-    system_logs_service: Optional[ServiceSystemLogsConfig]
+    system_logs_service: Optional[ServiceSystemLogsConfig] = None
+    cli_service: Optional[ServiceCliConfig] = None
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]):

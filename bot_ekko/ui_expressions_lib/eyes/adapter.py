@@ -37,6 +37,7 @@ DEFAULT_EYE_STATES = {
     StateRegistry.CANVAS:  [0, 0, 0, 0, 0],    # Show Text state
     StateRegistry.CHAT: [0, 0, 0, 0, 0],    # Show Text state
     StateRegistry.CLOCK: [0, 0, 0, 0, 0],   # Show Time state
+    StateRegistry.LISTENING: [160, 0.05, 30, 0.4, 0.2], # Listening state
 }
 
 logger = get_logger("MainAdapter")
@@ -339,6 +340,14 @@ class MainAdapter(BaseStateRenderer):
 
     def handle_INTERFACE(self, surface, now, params=None):
         pass
+
+    def handle_LISTENING(self, surface, now, params=None):
+        # --- LOGIC ---
+        self.movements.look_center()
+        self.random_blink(surface, now)
+
+        # --- RENDERING ---
+        self.expressions.draw_listening_eyes(surface, now)
 
     def handle_FUNNY(self, surface, now, params=None):
         if self.media_player and not self.media_player.is_playing:

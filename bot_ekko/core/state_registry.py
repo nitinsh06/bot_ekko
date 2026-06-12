@@ -25,6 +25,7 @@ class StateRegistry:
     CANVAS = "CANVAS"
     CHAT = "CHAT"
     CLOCK = "CLOCK"
+    LISTENING = "LISTENING"
 
     # Internal storage for state data
     # Initialized with None for known states
@@ -49,6 +50,7 @@ class StateRegistry:
         CANVAS: None,
         CHAT: None,
         CLOCK: None,
+        LISTENING: None,
     }
 
     @classmethod
